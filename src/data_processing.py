@@ -1,3 +1,4 @@
+# src/data_processing.py
 import pandas as pd
 import numpy as np
 
@@ -49,8 +50,9 @@ def map_ips_to_countries(fraud_df: pd.DataFrame, ip_df: pd.DataFrame) -> pd.Data
     fraud_df.loc[is_above_upper_bound | is_country_nan, 'country'] = 'Unknown'
 
     # Drop the extra bound columns
-    fraud_df.drop(columns=['lower_bound_ip_address', 'upper_bound_ip_address'], inplace=True)
+    fraud_df.drop(columns=['lower_bound_ip_address', 'upper_bound_ip_address','ip_address'], inplace=True)
 
     print(f"✅ Mapping complete. Found {n_unknowns:,} IPs with unknown countries.")
     
     return fraud_df
+
