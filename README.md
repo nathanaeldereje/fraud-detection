@@ -17,19 +17,19 @@ A successful system will enable faster risk mitigation, lower fraud-related loss
 
 ## Project Overview
 This project analyzes two highly imbalanced datasets:  
-1. E-commerce transactions with rich user, device, IP, and timing details.  
-2. Anonymized bank credit card transactions (PCA-transformed features).
+1. E-commerce transactions (`Fraud_Data.csv`) with rich user, device, IP, and timing details.  
+2. Anonymized bank credit card transactions (`creditcard.csv`) with PCA-transformed features.
 
-We perform thorough EDA, geolocation merging, feature engineering, imbalance handling (SMOTE/undersampling), model training (baseline + ensembles), and SHAP-based explainability to derive actionable business rules.
+We perform thorough EDA, geolocation merging, feature engineering, imbalance handling (SMOTE and SMOTETomek), model training, and SHAP-based explainability to derive actionable business rules.
 
 ### Key Deliverables
-- [ ] Comprehensive EDA with visualizations of fraud patterns and class imbalance  
-- [ ] Geolocation integration (IP → Country) and rich feature engineering (velocity, time-since-signup, etc.)  
-- [ ] Resampling strategy for severe class imbalance  
+- [x] Comprehensive EDA with visualizations of fraud patterns and class imbalance  
+- [x] Geolocation integration (IP → Country) and rich feature engineering (velocity, time-since-signup, etc.)  
+- [x] Resampling strategy for severe class imbalance (SMOTE for e-commerce, SMOTETomek for credit card)  
 - [ ] Baseline Logistic Regression + advanced ensemble (Random Forest/XGBoost/LightGBM)  
 - [ ] Evaluation using AUC-PR, F1-Score, Precision-Recall curves, and Confusion Matrix  
 - [ ] SHAP global/local explanations with business recommendations  
-- [ ] Clean, organized, and reproducible repository
+- [x] Clean, organized, and reproducible repository
 
 ---
 ## Fraud Detection Business Understanding
@@ -108,6 +108,11 @@ Place the raw datasets in `data/raw/`:
 * `IpAddress_to_Country.csv`
 * `creditcard.csv`
 
+Run the preprocessing pipeline:
+```bash
+   python scripts/preprocess.py
+```
+
 Explore and build the project using the Jupyter notebooks in order:
 1. `eda-fraud-data.ipynb`
 2. `eda-creditcard.ipynb`
@@ -115,13 +120,14 @@ Explore and build the project using the Jupyter notebooks in order:
 4. `modeling.ipynb`
 5. `shap-explainability.ipynb`
 ---
-## Current Progress (as of December 20, 2025)
+## Current Progress (as of December 21, 2025)
 | Task | Status | Notes |
 | :--- | :--- | :--- |
 | **Data Loading & Initial Cleaning** | ✅ Completed | Raw datasets loaded and inspected |
-| **EDA (Both Datasets)** | 🔄 In Progress | Visualizations and imbalance analysis ongoing |
-| **Geolocation Merging & Feature Engineering** | ⏳ Planned | IP-to-country + velocity features next |
-| **Model Building & Evaluation** | ⏳ Planned | Baseline + ensemble models |
+| **EDA (Both Datasets)** | ✅ Completed | Visualizations and imbalance analysis ongoing |
+| **Geolocation Merging & Feature Engineering** | ✅ Completed | IP-to-country + velocity features next |
+| **Data Transformation & Imbalance Handling** | ✅ Completed | Scaling/encoding pipeline + SMOTE/SMOTETomek on training only |
+| **Model Building & Evaluation** | 🔄 In Progress | Baseline + ensemble models |
 | **SHAP Explainability & Recommendations** | ⏳ Planned | Final insights and business rules |
 ---
 Challenge completed – Dec 2025  
