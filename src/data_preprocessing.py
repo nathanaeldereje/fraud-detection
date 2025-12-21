@@ -4,7 +4,11 @@ import numpy as np
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.pipeline import Pipeline
+import logging
 
+
+# Initialize logger for this module
+logger = logging.getLogger(__name__)
 def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Applies feature engineering operations to the cleaned Fraud_Data dataframe.
@@ -45,10 +49,10 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     
     # Check if they exist before dropping to avoid errors
     df.drop(columns=[c for c in cols_to_drop if c in df.columns], inplace=True)
-    print("✅ Feature engineering completed.")
-    print("Sample of new features:")
-    print(df[['hour_of_day', 'day_of_week', 'time_since_signup', 
-              'user_txn_count', 'user_total_spent', 'user_avg_purchase']].head())
+    logger.info("✅ Feature engineering completed.")
+    logger.info("Sample of new features:\n%s", 
+                df[['hour_of_day', 'day_of_week', 'time_since_signup', 
+                    'user_txn_count', 'user_total_spent', 'user_avg_purchase']].head())
 
     return df
 

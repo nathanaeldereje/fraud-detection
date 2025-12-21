@@ -1,5 +1,9 @@
 import pandas as pd
+import logging
 
+
+# Initialize logger for this module
+logger = logging.getLogger(__name__)
 def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     """
     Removes duplicate rows from a DataFrame and prints a summary report.
@@ -21,14 +25,15 @@ def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     final_rows = df_cleaned.shape[0]
 
     # Print formatted summary
-    print(f"Initial Row Count: {initial_rows:,}")
-    print(f"Duplicate Rows Found: {num_duplicates:,}")
-    print(f"Rows After Cleaning: {final_rows:,}")
+    # Print formatted summary
+    logger.info(f"Initial Row Count: {initial_rows:,}")
+    logger.info(f"Duplicate Rows Found: {num_duplicates:,}")
+    logger.info(f"Rows After Cleaning: {final_rows:,}")
 
     if initial_rows != final_rows:
-        print(f"✅ Removed {initial_rows - final_rows} duplicate rows.")
+        logger.info(f"✅ Removed {initial_rows - final_rows} duplicate rows.")
     else:
-        print("✅ No duplicates found.")
+        logger.info("✅ No duplicates found.")
         
     return df_cleaned
 
@@ -58,12 +63,13 @@ def remove_missing_values(df: pd.DataFrame) -> pd.DataFrame:
     total_nulls = df_cleaned.isnull().sum().sum()
 
     # Print Summary
+    # Print Summary
     if total_nulls == 0:
-        print(f"✅ No missing values detected. Dataset is clean.")
+        logger.info(f"✅ No missing values detected. Dataset is clean.")
         if initial_rows != remaining_rows:
-            print(f"   (Removed {initial_rows - remaining_rows} rows containing null values)")
+            logger.info(f"   (Removed {initial_rows - remaining_rows} rows containing null values)")
     else:
         # This theoretically shouldn't happen after dropna(), but good for sanity checking
-        print(f"⚠️ Warning: {total_nulls} missing values remain.")
+        logger.warning(f"⚠️ Warning: {total_nulls} missing values remain.")
         
     return df_cleaned

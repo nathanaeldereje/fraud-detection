@@ -1,7 +1,11 @@
 # src/data_processing.py
 import pandas as pd
 import numpy as np
+import logging
 
+
+# Initialize logger for this module
+logger = logging.getLogger(__name__)
 def map_ips_to_countries(fraud_df: pd.DataFrame, ip_df: pd.DataFrame) -> pd.DataFrame:
     """
     Maps IP addresses in the fraud dataset to countries using the IP lookup table.
@@ -19,7 +23,7 @@ def map_ips_to_countries(fraud_df: pd.DataFrame, ip_df: pd.DataFrame) -> pd.Data
     fraud_df = fraud_df.copy()
     ip_df = ip_df.copy()
 
-    print("Converting IP addresses to int64...")
+    logger.info("Converting IP addresses to int64...")
     fraud_df['ip_address'] = fraud_df['ip_address'].astype('float').astype('int64')
     ip_df['lower_bound_ip_address'] = ip_df['lower_bound_ip_address'].astype('float').astype('int64')
     ip_df['upper_bound_ip_address'] = ip_df['upper_bound_ip_address'].astype('float').astype('int64')
@@ -52,7 +56,7 @@ def map_ips_to_countries(fraud_df: pd.DataFrame, ip_df: pd.DataFrame) -> pd.Data
     # Drop the extra bound columns
     fraud_df.drop(columns=['lower_bound_ip_address', 'upper_bound_ip_address','ip_address'], inplace=True)
 
-    print(f"✅ Mapping complete. Found {n_unknowns:,} IPs with unknown countries.")
+    logger.info(f"✅ Mapping complete. Found {n_unknowns:,} IPs with unknown countries.")
     
     return fraud_df
 
