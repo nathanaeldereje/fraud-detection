@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from imblearn.over_sampling import SMOTE
+from imblearn.combine import SMOTETomek
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import train_test_split
 
@@ -83,6 +84,8 @@ def prepare_data_for_modeling(
         balancer = SMOTE(random_state=random_state)
     elif imbalance_technique == "undersample":
         balancer = RandomUnderSampler(random_state=random_state)
+    elif imbalance_technique == "smotetomek":
+        balancer = SMOTETomek(random_state=random_state)
     else:
         # If 'none', just return the processed data
         return X_train_processed, y_train, X_test_processed, y_test, preprocessor
