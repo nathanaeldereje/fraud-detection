@@ -129,7 +129,7 @@ Explore and build the project using the Jupyter notebooks in order:
 | CreditCard    | Logistic Regression  | 0.713   | 0.05            | 0.87         | 0.10       | Many false positives |
 | CreditCard    | XGBoost (tuned)      | **0.814** | **0.76**      | **0.82**     | **0.79**   | **Selected** |
 ---
-## Current Progress (as of December 21, 2025)
+## Current Progress (as of December 23, 2025)
 | Task | Status | Notes |
 | :--- | :--- | :--- |
 | **Data Loading & Initial Cleaning** | ✅ Completed | Raw datasets loaded and inspected |
@@ -137,7 +137,7 @@ Explore and build the project using the Jupyter notebooks in order:
 | **Geolocation Merging & Feature Engineering** | ✅ Completed | IP-to-country + velocity features next |
 | **Data Transformation & Imbalance Handling** | ✅ Completed | Scaling/encoding pipeline + SMOTE/SMOTETomek on training only |
 | **Model Building & Evaluation** | ✅ Completed | Baseline + ensemble models |
-| **SHAP Explainability & Recommendations** | ⏳ Planned | Final insights and business rules |
+| **SHAP Explainability & Recommendations** | 🔄 In Progress | Final insights and business rules |
 ---
 Challenge completed – Dec 2025  
 Built by Nathanael Dereje
