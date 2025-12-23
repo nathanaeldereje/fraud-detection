@@ -26,8 +26,8 @@ We perform thorough EDA, geolocation merging, feature engineering, imbalance han
 - [x] Comprehensive EDA with visualizations of fraud patterns and class imbalance  
 - [x] Geolocation integration (IP → Country) and rich feature engineering (velocity, time-since-signup, etc.)  
 - [x] Resampling strategy for severe class imbalance (SMOTE for e-commerce, SMOTETomek for credit card)  
-- [ ] Baseline Logistic Regression + advanced ensemble (Random Forest/XGBoost/LightGBM)  
-- [ ] Evaluation using AUC-PR, F1-Score, Precision-Recall curves, and Confusion Matrix  
+- [x] Baseline Logistic Regression + advanced ensemble (Random Forest/XGBoost/LightGBM)  
+- [x] Evaluation using AUC-PR, F1-Score, Precision-Recall curves, and Confusion Matrix  
 - [ ] SHAP global/local explanations with business recommendations  
 - [x] Clean, organized, and reproducible repository
 
@@ -120,6 +120,15 @@ Explore and build the project using the Jupyter notebooks in order:
 4. `modeling.ipynb`
 5. `shap-explainability.ipynb`
 ---
+## Model Comparison Summary
+
+| Dataset       | Model                | AUC-PR  | Fraud Precision | Fraud Recall | F1 (Fraud) | Notes |
+|---------------|----------------------|---------|-----------------|--------------|------------|-------|
+| Fraud_Data    | Logistic Regression  | 0.393   | 0.17            | 0.70         | 0.28       | High recall, low precision |
+| Fraud_Data    | XGBoost (tuned)      | **0.607** | **0.96**      | 0.53         | **0.68**   | **Selected** |
+| CreditCard    | Logistic Regression  | 0.713   | 0.05            | 0.87         | 0.10       | Many false positives |
+| CreditCard    | XGBoost (tuned)      | **0.814** | **0.76**      | **0.82**     | **0.79**   | **Selected** |
+---
 ## Current Progress (as of December 21, 2025)
 | Task | Status | Notes |
 | :--- | :--- | :--- |
@@ -127,7 +136,7 @@ Explore and build the project using the Jupyter notebooks in order:
 | **EDA (Both Datasets)** | ✅ Completed | Visualizations and imbalance analysis ongoing |
 | **Geolocation Merging & Feature Engineering** | ✅ Completed | IP-to-country + velocity features next |
 | **Data Transformation & Imbalance Handling** | ✅ Completed | Scaling/encoding pipeline + SMOTE/SMOTETomek on training only |
-| **Model Building & Evaluation** | 🔄 In Progress | Baseline + ensemble models |
+| **Model Building & Evaluation** | ✅ Completed | Baseline + ensemble models |
 | **SHAP Explainability & Recommendations** | ⏳ Planned | Final insights and business rules |
 ---
 Challenge completed – Dec 2025  
