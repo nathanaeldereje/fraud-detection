@@ -18,9 +18,9 @@ scikit-learn==1.5.0
 # UNCOMMENT FOR INTERIM-2 (Task 2: Modeling)
 # =======================================================
 imbalanced-learn==0.12.3  # For SMOTE and undersampling
-# xgboost==2.0.3            # Gradient Boosting
+xgboost==2.0.3            # Gradient Boosting
 # lightgbm==4.3.0           # Gradient Boosting (Alternative)
-# joblib==1.4.2             # For saving/loading models
+joblib==1.4.2             # For saving/loading models
 
 # =======================================================
 # UNCOMMENT FOR FINAL SUBMISSION (Task 3: Explainability)

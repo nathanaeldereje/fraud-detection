@@ -11,32 +11,32 @@ import logging
 
 # Initialize logger for this module
 logger = logging.getLogger(__name__)
-def build_preprocessor(X: pd.DataFrame):
-    """
-    Builds a ColumnTransformer for numeric scaling and categorical one-hot encoding.
+# def build_preprocessor(X: pd.DataFrame):
+#     """
+#     Builds a ColumnTransformer for numeric scaling and categorical one-hot encoding.
     
-    Args:
-        X (pd.DataFrame): Feature DataFrame (no target column).
+#     Args:
+#         X (pd.DataFrame): Feature DataFrame (no target column).
     
-    Returns:
-        ColumnTransformer: Unfitted preprocessor.
-    """
-    numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
-    categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
+#     Returns:
+#         ColumnTransformer: Unfitted preprocessor.
+#     """
+#     numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
+#     categorical_features = X.select_dtypes(include=['object', 'category']).columns.tolist()
 
-    logger.info(f"Numeric features ({len(numeric_features)}): {numeric_features}")
-    logger.info(f"Categorical features ({len(categorical_features)}): {categorical_features}")
+#     logger.info(f"Numeric features ({len(numeric_features)}): {numeric_features}")
+#     logger.info(f"Categorical features ({len(categorical_features)}): {categorical_features}")
 
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ('num', StandardScaler(), numeric_features),
-            ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical_features)
-        ],
-        remainder='drop'
-    )
+#     preprocessor = ColumnTransformer(
+#         transformers=[
+#             ('num', StandardScaler(), numeric_features),
+#             ('cat', OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical_features)
+#         ],
+#         remainder='drop'
+#     )
 
-    logger.info("✅ Preprocessing pipeline (scaling + encoding) built.")
-    return preprocessor
+#     logger.info("✅ Preprocessing pipeline (scaling + encoding) built.")
+#     return preprocessor
 
 
 
@@ -52,7 +52,7 @@ def prepare_data_for_modeling(
     """
     Complete preprocessing + imbalance handling pipeline.
     """
-    logger.info(f"\n=== Preparing {dataset_name} for Modeling ===")
+    print(f"\n=== Preparing {dataset_name} for Modeling ===")
 
     # 1. Stratified split
     X_train, X_test, y_train, y_test = train_test_split(
@@ -70,9 +70,9 @@ def prepare_data_for_modeling(
         ],
         remainder='drop'
     )
-    logger.info("Before Handling imbalance:")
-    logger.info(f"Train: {X_train.shape}, Test: {X_test.shape}")
-    logger.info("Fitting preprocessor on training data...")
+    print("Before Handling imbalance:")
+    print(f"Train: {X_train.shape}, Test: {X_test.shape}")
+    print("Fitting preprocessor on training data...")
     X_train_processed = preprocessor.fit_transform(X_train) # Fit and Transform Train
     X_test_processed = preprocessor.transform(X_test)       # Transform Test
 
@@ -82,7 +82,7 @@ def prepare_data_for_modeling(
     X_test_processed = pd.DataFrame(X_test_processed, columns=feature_names)
 
     # 3. Imbalance handling (On Processed Train Data)
-    logger.info(f"Applying {imbalance_technique.upper()}...")
+    print(f"Applying {imbalance_technique.upper()}...")
     
     if imbalance_technique == "smote":
         balancer = SMOTE(random_state=random_state)
@@ -97,11 +97,11 @@ def prepare_data_for_modeling(
     # Apply the selected balancer
     X_train_bal, y_train_bal = balancer.fit_resample(X_train_processed, y_train)
     
-    logger.info("Class distribution BEFORE balancing:")
-    logger.info(pd.Series(y_train).value_counts(normalize=True).round(4).to_dict())
-    logger.info("Class distribution AFTER balancing:")
-    logger.info(pd.Series(y_train_bal).value_counts(normalize=True).round(4).to_dict())
+    print("Class distribution BEFORE balancing:")
+    print(pd.Series(y_train).value_counts(normalize=True).round(4).to_dict())
+    print("Class distribution AFTER balancing:")
+    print(pd.Series(y_train_bal).value_counts(normalize=True).round(4).to_dict())
 
-    logger.info(f"✅ Ready for modeling! Train Shape: {X_train_bal.shape}")
+    print(f"✅ Ready for modeling! Train Shape: {X_train_bal.shape}")
 
     return X_train_bal, y_train_bal, X_test_processed, y_test, preprocessor
