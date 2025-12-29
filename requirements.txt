@@ -25,9 +25,8 @@ joblib==1.4.2             # For saving/loading models
 # =======================================================
 # UNCOMMENT FOR FINAL SUBMISSION (Task 3: Explainability)
 # =======================================================
-# shap==0.45.1              # Model explainability
-# lime==0.2.0.1             # Alternative explainability (optional)
-
+shap==0.45.1              # Model explainability
+# lime==0.2.0.1             # Alternative explainability (optional)git 
 # --- Development Tools (Optional) ---
 # black==24.4.2             # Code formatting
 # flake8==7.0.0             # Linting
