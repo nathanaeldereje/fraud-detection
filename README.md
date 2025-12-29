@@ -28,7 +28,7 @@ We perform thorough EDA, geolocation merging, feature engineering, imbalance han
 - [x] Resampling strategy for severe class imbalance (SMOTE for e-commerce, SMOTETomek for credit card)  
 - [x] Baseline Logistic Regression + advanced ensemble (Random Forest/XGBoost/LightGBM)  
 - [x] Evaluation using AUC-PR, F1-Score, Precision-Recall curves, and Confusion Matrix  
-- [ ] SHAP global/local explanations with business recommendations  
+- [x] SHAP global/local explanations with business recommendations  
 - [x] Clean, organized, and reproducible repository
 
 ---
@@ -51,34 +51,49 @@ We perform thorough EDA, geolocation merging, feature engineering, imbalance han
 ---
 ## Project Structure
 ```text
-fraud-detection/
-├── .vscode/
-│   └── settings.json
 ├── .github/
 │   └── workflows/
 │       └── unittests.yml
-├── data/                           # Add this folder to .gitignore
-│   ├── raw/                        # Original datasets
-│   └── processed/                  # Cleaned and feature-engineered data
+├── data/
+│   ├── processed/
+│   │   └── .gitkeep
+│   └── raw/
+│       └── .gitkeep
+├── models/
+│   └── .gitkeep
 ├── notebooks/
 │   ├── __init__.py
-│   ├── eda-fraud-data.ipynb
 │   ├── eda-creditcard.ipynb
+│   ├── eda-fraud-data.ipynb
 │   ├── feature-engineering.ipynb
 │   ├── modeling.ipynb
-│   ├── shap-explainability.ipynb
+│   ├── README.md
+│   └── shap-explainability.ipynb
+├── outputs/
+│   └── shap/
+│       ├── false_negative_missed_fraud_2.html
+│       ├── false_positive_legitimate_flagged_as_fraud_310.html
+│       └── true_positive_correctly_detected_fraud_17.html
+├── scripts/
+│   ├── __init__.py
+│   ├── preprocess.py
 │   └── README.md
 ├── src/
 │   ├── __init__.py
+│   ├── data_cleaning.py
+│   ├── data_preprocessing.py
+│   ├── data_processing.py
+│   ├── evaluation.py
+│   ├── explainability.py
+│   └── model_preprocessing.py
 ├── tests/
 │   ├── __init__.py
-├── models/                         # Saved model artifacts
-├── scripts/
-│   ├── __init__.py
-│   └── README.md
-├── requirements.txt
+│   ├── test_data_cleaning.py
+│   ├── test_feature_engineering.py
+│   └── test_model_preprocessing.py
+├── .gitignore
 ├── README.md
-└── .gitignore
+└── requirements.txt
 ```
 ---
 ## Tech Stack
@@ -91,7 +106,7 @@ fraud-detection/
 ## Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/fraud-detection.git
+git clone https://github.com/nathanaeldereje/fraud-detection.git
 cd fraud-detection
 
 # Create and activate virtual environment
@@ -125,19 +140,21 @@ Explore and build the project using the Jupyter notebooks in order:
 | Dataset       | Model                | AUC-PR  | Fraud Precision | Fraud Recall | F1 (Fraud) | Notes |
 |---------------|----------------------|---------|-----------------|--------------|------------|-------|
 | Fraud_Data    | Logistic Regression  | 0.393   | 0.17            | 0.70         | 0.28       | High recall, low precision |
-| Fraud_Data    | XGBoost (tuned)      | **0.607** | **0.96**      | 0.53         | **0.68**   | **Selected** |
+| Fraud_Data    | XGBoost (tuned)      | **0.607** | **0.96**      | 0.53         | **0.68**   | **Selected** — high precision, stable |
 | CreditCard    | Logistic Regression  | 0.713   | 0.05            | 0.87         | 0.10       | Many false positives |
-| CreditCard    | XGBoost (tuned)      | **0.814** | **0.76**      | **0.82**     | **0.79**   | **Selected** |
+| CreditCard    | XGBoost (tuned)      | **0.814** | **0.76**      | **0.82**     | **0.79**   | **Selected** — excellent balance |
 ---
-## Current Progress (as of December 23, 2025)
+
+
+## Current Progress (as of December 29, 2025)
 | Task | Status | Notes |
 | :--- | :--- | :--- |
 | **Data Loading & Initial Cleaning** | ✅ Completed | Raw datasets loaded and inspected |
 | **EDA (Both Datasets)** | ✅ Completed | Visualizations and imbalance analysis ongoing |
 | **Geolocation Merging & Feature Engineering** | ✅ Completed | IP-to-country + velocity features next |
 | **Data Transformation & Imbalance Handling** | ✅ Completed | Scaling/encoding pipeline + SMOTE/SMOTETomek on training only |
-| **Model Building & Evaluation** | ✅ Completed | Baseline + ensemble models |
-| **SHAP Explainability & Recommendations** | 🔄 In Progress | Final insights and business rules |
+| **Model Building & Evaluation** | ✅ Completed | Logistic baseline + tuned XGBoost |
+| **SHAP Explainability & Recommendations** | ✅ Completed | Global/local analysis + actionable rules |
 ---
-Challenge completed – Dec 2025  
+Challenge completed – December 29, 2025 
 Built by Nathanael Dereje
